@@ -1,0 +1,36 @@
+{{define "userReaction"}}
+<div class="action-buttons">
+  <!-- Purchase Form -->
+  <form action="/reaction" method="POST" style="display:inline;">
+    <input type="hidden" name="product_id" value="{{.ProductId}}">
+    <input type="hidden" name="reaction" value="purchase">
+    <button type="submit">Purchase</button>
+  </form>
+
+  <!-- Like Form -->
+  <form action="/reaction" method="POST" style="display:inline;">
+    <input type="hidden" name="product_id" value="{{.ProductId}}">
+    <input type="hidden" name="reaction" value="like">
+    <button type="submit" class="like-button">Like</button>
+  </form>
+</div>
+{{end}}
+
+
+{{define "userLogout"}}
+
+  <!-- Logout button form -->
+<form action="/logout" method="POST" style="margin-right: 20px;">
+  <button type="submit" class="logout-btn">Logout</button>
+</form>
+
+{{end}}
+
+{{define "userHistory"}}
+<li><a href="/history">History</a></li>
+{{end}}
+
+
+{{define "userRecommendation"}}
+<li><a href="/recommendation">Recommended</a></li>
+{{end}}

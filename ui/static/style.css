@@ -1,0 +1,102 @@
+/* Apply to both login and signup containers */
+.container {
+    background-color: white;
+    padding: 30px;
+    border-radius: 12px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+    width: 350px;
+    text-align: center;
+    margin: 0 auto; /* Center the container */
+}
+
+h2 {
+    font-size: 24px;
+    margin-bottom: 25px;
+    color: #333;
+}
+
+label {
+    display: block;
+    margin-bottom: 8px;
+    text-align: left;
+    font-weight: bold;
+    color: #333;
+}
+
+
+
+ input[type="text"] {
+     width: 100%;  /* Make the input take up the full width of its container */
+     padding: 12px 20px;  /* Add padding inside the input */
+     margin: 8px 0;  /* Add some margin around the input */
+     display: inline-block;  /* Ensure the input is inline but treated as a block-level element */
+     border: 2px solid #ccc;  /* Set a border with a light color */
+     border-radius: 4px;  /* Add rounded corners */
+     box-sizing: border-box;  /* Ensure padding and border are included in the element’s width */
+     background-color: #f4f4f4;  /* Light background color */
+     font-size: 16px;  /* Increase the font size */
+     font-family: Arial, sans-serif;  /* Use the same font-family */
+     transition: border-color 0.3s ease-in-out, background-color 0.3s ease-in-out;
+ }
+
+input[type="text"]:focus {
+    border-color: #0043ff;  /* Change border color on focus */
+    background-color: #fff;  /* Change background color on focus */
+    outline: none;  /* Remove the default focus outline */
+}
+
+
+
+button {
+    width: 100%;
+    padding: 12px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    font-size: 16px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+button:hover {
+    background-color: #0056b3;
+}
+
+button:focus {
+    outline: 2px solid #0056b3;
+}
+
+.extra-info {
+    margin-top: 20px;
+    font-size: 14px;
+}
+
+.extra-info a {
+    color: #007bff;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+.extra-info a:hover {
+    text-decoration: underline;
+}
+
+.error-message {
+    background-color: #f8d7da;
+    color: #721c24;
+    padding: 12px;
+    border: 1px solid #f5c6cb;
+    border-radius: 8px;
+    margin-bottom: 15px;
+}
+
+.error-message p {
+    margin: 0;
+}
+
+button:focus-visible {
+    outline: 3px solid #0056b3;
+    outline-offset: 2px;
+}
