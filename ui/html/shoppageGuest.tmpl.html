@@ -1,21 +1,331 @@
-{{define "guestLogin"}}
+{{define "shoppage"}}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Online Shop</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
 
+        body {
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+            background-color: #f4f4f4;
+            color: #333;
+        }
+
+        header {
+            background-color: #333;
+            color: #fff;
+            padding: 10px 0;
+            text-align: center;
+        }
+
+        header h1 {
+            margin-bottom: 10px;
+        }
+
+        nav ul {
+            list-style: none;
+            display: flex;
+            justify-content: center;
+        }
+
+        nav ul li {
+            margin: 0 15px;
+        }
+
+        nav ul li a {
+            color: #fff;
+            text-decoration: none;
+            font-size: 1.1em;
+        }
+
+        nav ul li a:hover {
+            text-decoration: underline;
+        }
+
+        .categories {
+            margin: 20px;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        .categories h2 {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .categories ul {
+            list-style: none;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-around;
+        }
+
+        .categories ul li {
+            margin: 10px 0;
+        }
+
+        button {
+            padding: 10px 20px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 1.1em;
+        }
+
+        button:hover {
+            background-color: #0056b3;
+        }
+
+        .history, .recommended {
+            margin: 20px;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        .products {
+            margin: 20px;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        .products h2 {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .product-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+        }
+
+        .product-item {
+            background-color: #f9f9f9;
+            padding: 20px;
+            text-align: center;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            transition: transform 0.3s ease;
+        }
+
+        .product-item:hover {
+            transform: scale(1.05);
+        }
+
+        .product-item img {
+            max-width: 100%;
+            height: auto;
+            border-bottom: 1px solid #ddd;
+            margin-bottom: 10px;
+        }
+
+        .product-item h3 {
+            font-size: 1.2em;
+            margin-bottom: 10px;
+        }
+
+        .product-item p {
+            margin-bottom: 10px;
+        }
+
+        .product-item .action-buttons {
+            display: flex;
+            justify-content: space-around;
+            margin-top: 10px;
+        }
+
+        .action-buttons button {
+            background-color: #28a745;
+            color: white;
+            border: none;
+            padding: 10px 15px;
+            cursor: pointer;
+        }
+
+        .action-buttons .like-button {
+            background-color: #ff4757;
+        }
+
+        .action-buttons button:hover {
+            background-color: #218838;
+        }
+
+        .action-buttons .like-button:hover {
+            background-color: #e84118;
+        }
+
+        footer {
+            background-color: #333;
+            color: #fff;
+            text-align: center;
+            padding: 10px 0;
+            position: fixed;
+            width: 100%;
+            bottom: 0;
+        }
+    </style>
+</head>
+<body>
+<header>
+    <h1>Online Shop</h1>
+    <nav>
+        <ul>
+            <li><a href="/">Home</a></li>
+            {{block "userHistory" . }} {{end}}
+            {{block "userRecommendation" . }} {{end}}
+            {{block "userLogout" . }} {{end}}
+            {{block "guestSignup" . }} {{end}}
+            {{block "guestLogin" . }} {{end}}
+        </ul>
+    </nav>
+</header>
+
+
+<!--<section class="categories">-->
+<!--  <h2>Product Categories</h2>-->
+<!--  <ul>-->
+<!--    &lt;!&ndash; Forms for each category to send POST request with category value &ndash;&gt;-->
+<!--    <li>-->
+<!--      <form action="/" method="GET">-->
+<!--        <input type="hidden" name="category" value="">-->
+<!--        <button type="submit">All</button>-->
+<!--      </form>-->
+<!--    </li>-->
+
+<!--    <li>-->
+<!--      <form action="/" method="GET">-->
+<!--        <input type="hidden" name="category" value="Electronics">-->
+<!--        <button type="submit">Electronics</button>-->
+<!--      </form>-->
+<!--    </li>-->
+<!--    <li>-->
+<!--      <form action="/" method="GET">-->
+<!--        <input type="hidden" name="category" value="Fashion">-->
+<!--        <button type="submit">Fashion</button>-->
+<!--      </form>-->
+<!--    </li>-->
+<!--    <li>-->
+<!--      <form action="/" method="GET">-->
+<!--        <input type="hidden" name="category" value="Home Appliances">-->
+<!--        <button type="submit">Home Appliances</button>-->
+<!--      </form>-->
+<!--    </li>-->
+<!--    <li>-->
+<!--      <form action="/" method="GET">-->
+<!--        <input type="hidden" name="category" value="Toys and Games">-->
+<!--        <button type="submit">Toys and Games</button>-->
+<!--      </form>-->
+<!--    </li>-->
+<!--    <li>-->
+<!--      <form action="/" method="GET">-->
+<!--        <input type="hidden" name="category" value="Health">-->
+<!--        <button type="submit">Health</button>-->
+<!--      </form>-->
+<!--    </li>-->
+<!--    <li>-->
+<!--      <form action="/" method="GET">-->
+<!--        <input type="hidden" name="category" value="Software and Digital Goods">-->
+<!--        <button type="submit">Software and Digital Goods</button>-->
+<!--      </form>-->
+<!--    </li>-->
+<!--    <li>-->
+<!--      <form action="/" method="GET">-->
+<!--        <input type="hidden" name="category" value="Books">-->
+<!--        <button type="submit">Books</button>-->
+<!--      </form>-->
+<!--    </li>-->
+<!--    <li>-->
+<!--      <form action="/" method="GET">-->
+<!--        <input type="hidden" name="category" value="Sports and Fitness">-->
+<!--        <button type="submit">Sports and Fitness</button>-->
+<!--      </form>-->
+<!--    </li>-->
+<!--    <li>-->
+<!--      <form action="/" method="GET">-->
+<!--        <input type="hidden" name="category" value="Groceries">-->
+<!--        <button type="submit">Groceries</button>-->
+<!--      </form>-->
+<!--    </li>-->
+<!--  </ul>-->
+<!--</section>-->
+
+<form method="GET" action="/" style="max-width: 400px; margin: auto; padding: 20px; background-color: #f9f9f9; border-radius: 8px; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);">
+    <div style="display: flex; flex-direction: column;">
+        <label for="List1" style="font-size: 1.1em; font-weight: bold; margin-bottom: 8px;">Search Bar:</label>
+
+        <input
+                list="List1"
+                name="SearchingValue"
+                id="List"
+                placeholder="Type a product category..."
+                style="padding: 10px; border: 1px solid #ccc; border-radius: 4px; font-size: 1em;">
+
+        <datalist id="List1">
+            {{range $key, $value := .Mapping}}
+            <option>{{$key}}</option>
+            {{end}}
+        </datalist>
+
+
+
+        <button type="submit" style="margin-top: 20px; padding: 10px; font-size: 1em; font-weight: bold; color: white; background-color: #007bff; border: none; border-radius: 4px; cursor: pointer;">
+            Submit
+        </button>
+    </div>
+</form>
+
+
+<section class="products">
+    <h2>Available Products</h2>
+    <div class="product-grid">
+        {{range .Product}}
+        <div class="product-item">
+            <h3>{{.Name}}</h3>
+            <p>Category: {{.Category}}</p>
+            <p>Price: ${{.Cost}}</p>
+            <p>Description:{{.Description}}</p>
+
+        </div>
+        {{end}}
+    </div>
+</section>
+
+<footer>
+    <p>© 2024 Online Shop. All rights reserved.</p>
+</footer>
+</body>
+</html>
+{{end}}
+
+{{define "guestLogin"}}
 <li>
     <form action="/auth/login" method="GET">
         <button type="submit">Login</button>
     </form>
 </li>
-
 {{end}}
 
-
 {{define "guestSignup"}}
-
 <li>
     <form action="/auth/signup" method="GET">
         <button type="submit">Sign Up</button>
     </form>
-</li>
 
-
+<li>
 {{end}}

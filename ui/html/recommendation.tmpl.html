@@ -1,0 +1,130 @@
+{{define "recommendation"}}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Product Recommendations</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f9f9f9;
+            color: #333;
+            padding: 20px;
+        }
+
+        h1 {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            gap: 20px;
+        }
+
+        .list-container {
+            flex: 1;
+            min-width: 300px;
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+
+        .list-container h2 {
+            text-align: center;
+            margin-bottom: 15px;
+            font-size: 1.4em;
+            color: #007bff;
+        }
+
+        .product-item {
+            padding: 10px;
+            border-bottom: 1px solid #ddd;
+        }
+
+        .product-item:last-child {
+            border-bottom: none;
+        }
+
+        .product-item h3 {
+            font-size: 1.2em;
+            margin-bottom: 5px;
+            color: #333;
+        }
+
+        .product-item p {
+            margin-bottom: 8px;
+            font-size: 0.95em;
+            color: #666;
+        }
+
+        .product-item .price {
+            font-size: 1em;
+            font-weight: bold;
+            color: #28a745;
+        }
+        .no-products {
+            font-style: italic;
+            color: #777;
+        }
+        @media (max-width: 768px) {
+            .container {
+                flex-direction: column;
+            }
+        }
+    </style>
+</head>
+<body>
+<a href="/"><h1>Online Shop</h1></a>
+
+<h2>Recommended Products</h2>
+<div class="container">
+
+    <div class="list-container">
+        <h3>Behavioural-Based Products</h3>
+        {{if .Product.Behaviour}}
+        {{range .Product.Behaviour}}
+        <div class="product-item">
+            <h4>{{.Name}}</h4>
+            <p><strong>Category:</strong> {{.Category}}</p>
+            <p>{{.Description}}</p>
+            <p class="price">$ {{.Cost}}</p>
+        </div>
+        {{end}}
+        {{else}}
+        <p class="no-products">No behavioural products yet.</p>
+        {{end}}
+    </div>
+
+    <div class="list-container">
+        <h3>Collaborative-Based Products</h3>
+        {{if .Product.Collaborative}}
+        {{range .Product.Collaborative}}
+        <div class="product-item">
+            <h4>{{.Name}}</h4>
+            <p><strong>Category:</strong> {{.Category}}</p>
+            <p>{{.Description}}</p>
+            <p class="price">$ {{.Cost}}</p>
+        </div>
+        {{end}}
+        {{else}}
+        <p class="no-products">No collaborative products yet.</p>
+        {{end}}
+    </div>
+
+
+</div>
+</body>
+</html>
+
+{{end}}

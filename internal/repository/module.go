@@ -7,6 +7,7 @@ import (
 type DbModule interface {
 	userRepository
 	productRepository
+	relationship
 	//PostRepository
 	//CommentRepository
 	//CategoryRepository
@@ -28,6 +29,15 @@ type userRepository interface {
 
 type productRepository interface {
 	RetrieveProducts(role string, userId int) ([]domain.Product, error)
+	RetrievePurchasedProduct(userId int) ([]domain.Product, error)
+	RetrieveLikedProduct(userId int) ([]domain.Product, error)
+	RetrieveCollaborativeProduct(userId int) ([]domain.Product, error)
+	RetrieveBehaviourBasedProduct(userId int) ([]domain.Product, error)
+}
+
+type relationship interface {
+	Purchase(userId, productId int) error
+	Like(userId, productId int) error
 }
 
 //type PostRepository interface {

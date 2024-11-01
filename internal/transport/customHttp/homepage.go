@@ -1,11 +1,14 @@
 package customHttp
 
 import (
+	"SimpleShop/internal/domain"
 	"SimpleShop/internal/service/session"
 	"SimpleShop/pkg/logger"
 	"bytes"
+	"context"
 	"html/template"
 	"net/http"
+	"strings"
 )
 
 func (handler *HandlerHttp) homePage(w http.ResponseWriter, r *http.Request) {
@@ -28,12 +31,16 @@ func (handler *HandlerHttp) homePage(w http.ResponseWriter, r *http.Request) {
 		if role != "Guest" {
 			userId = r.Context().Value("UserId").(int)
 		}
+		searchingValue0 := r.FormValue("SearchingValue")
+		searchingValue := strings.TrimSpace(searchingValue0)
+
+		ctx := context.WithValue(r.Context(), "SearchingValue", searchingValue)
 
 		switch role {
 		case "User":
-			homePageGet(w, userId, []string{"../ui/html/shoppage.tmpl.html", "../ui/html/shoppageUser.tmpl.html"}, handler)
+			homePageGet(w, r.WithContext(ctx), userId, []string{"../ui/html/shoppageUser.tmpl.html"}, handler)
 		case "Guest":
-			homePageGet(w, -1, []string{"../ui/html/shoppage.tmpl.html", "../ui/html/shoppageGuest.tmpl.html"}, handler)
+			homePageGet(w, r.WithContext(ctx), -1, []string{"../ui/html/shoppageGuest.tmpl.html"}, handler)
 		}
 	}
 
@@ -43,7 +50,7 @@ func (handler *HandlerHttp) homePage(w http.ResponseWriter, r *http.Request) {
 
 }
 
-func homePageGet(w http.ResponseWriter, userId int, files []string, handler *HandlerHttp) {
+func homePageGet(w http.ResponseWriter, r *http.Request, userId int, files []string, handler *HandlerHttp) {
 
 	tmpl, err := template.ParseFiles(files...)
 	if err != nil {
@@ -52,29 +59,44 @@ func homePageGet(w http.ResponseWriter, userId int, files []string, handler *Han
 		return
 	}
 
-	csrfText, err := session.GenerateRandomCSRFText()
-	if err != nil {
-		customLogger.ErrorLogger.Print(logger.ErrorWrapper("Transport", "homePageGet", "There is a problem in the process of generating random CSRF text", err))
-		serverError(w)
-		return
-	}
-
-	if userId >= 0 {
-		CSRFMap[session.MapUUID[userId]] = csrfText
-	}
-
 	var buf bytes.Buffer
-	data, err := handler.Service.Homepage(userId)
+
+	searchingValue := r.Context().Value("SearchingValue").(string)
+	Products, mapping, err := handler.Service.Homepage(userId, searchingValue)
 
 	if err != nil {
 		customLogger.ErrorLogger.Print(logger.ErrorWrapper("Transport", "homePageGet", "There is a problem in the process of getting Product entity from data base", err))
 		serverError(w)
 		return
 	}
-	err = tmpl.ExecuteTemplate(&buf, "shoppage", map[string]interface{}{
-		"CSRFText": csrfText,
-		"Product":  data,
-	})
+
+	if userId >= 0 {
+		csrfText, err := session.GenerateRandomCSRFText()
+		if err != nil {
+			customLogger.ErrorLogger.Print(logger.ErrorWrapper("Transport", "homePageGet", "There is a problem in the process of generating random CSRF text", err))
+			serverError(w)
+			return
+		}
+
+		CSRFMap[session.MapUUID[userId]] = csrfText
+		data := struct {
+			Product []domain.Product
+			Csrf    string
+		}{
+			Product: Products,
+			Csrf:    csrfText,
+		}
+
+		err = tmpl.ExecuteTemplate(&buf, "shoppage", map[string]interface{}{
+			"Product": data,
+			"Mapping": mapping,
+		})
+	} else {
+		err = tmpl.ExecuteTemplate(&buf, "shoppage", map[string]interface{}{
+			"Product": Products,
+			"Mapping": mapping,
+		})
+	}
 
 	if err != nil {
 		customLogger.ErrorLogger.Print(logger.ErrorWrapper("Transport", "homePageGet", "There is a problem in the process of rendering template to the buffer", err))

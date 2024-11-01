@@ -5,7 +5,7 @@ import (
 	"SimpleShop/pkg/logger"
 )
 
-func (app *Application) Homepage(userId int) ([]domain.Product, error) {
+func (app *Application) Homepage(userId int, searchingValue string) ([]domain.Product, map[string]bool, error) {
 	var products []domain.Product
 	var err error
 
@@ -16,8 +16,21 @@ func (app *Application) Homepage(userId int) ([]domain.Product, error) {
 	}
 
 	if err != nil {
-		return nil, logger.ErrorWrapper("UseCase", "Homepage", "There is problem with retrieveing the data from the db", err)
+		return nil, nil, logger.ErrorWrapper("UseCase", "Homepage", "There is problem with retrieveing the data from the db", err)
 	}
 
-	return products, nil
+	if searchingValue == "" {
+		return products, nil, nil
+	} else {
+		var filteredProduct []domain.Product
+		var mapping map[string]bool = make(map[string]bool)
+		for i := 0; i < len(products); i++ {
+			mapping[products[i].Category] = true
+			if products[i].Category == searchingValue {
+				filteredProduct = append(filteredProduct, products[i])
+			}
+		}
+		return filteredProduct, mapping, nil
+	}
+
 }

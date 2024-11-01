@@ -4,7 +4,9 @@ import (
 	"SimpleShop/internal/domain"
 	"SimpleShop/pkg/logger"
 	"context"
+	"fmt"
 	"github.com/neo4j/neo4j-go-driver/v5/neo4j"
+	"strconv"
 )
 
 func (rp *Repository) RetrieveProducts(role string, userId int) ([]domain.Product, error) {
@@ -13,7 +15,7 @@ func (rp *Repository) RetrieveProducts(role string, userId int) ([]domain.Produc
 	if role == "User" {
 		statement = `		
 			MATCH (u:User {UserID: $userId}), (p:Product)
-			WHERE NOT (u)-[:purchased]->(p)
+			WHERE NOT (u)-[:PURCHASED]->(p)
 			RETURN p
 		`
 		mapping = map[string]interface{}{"userId": userId}
@@ -33,11 +35,10 @@ func retrieveProductsOperation(rp *Repository, statement string, mapping map[str
 	session := rp.DB.NewSession(context.Background(), neo4j.SessionConfig{AccessMode: neo4j.AccessModeRead})
 	defer session.Close(context.Background())
 
-	// Execute the query with ExecuteRead
 	result, err := session.ExecuteRead(context.Background(), func(tx neo4j.ManagedTransaction) (interface{}, error) {
 		records, err := tx.Run(context.Background(), statement, mapping)
 		if err != nil {
-			return nil, logger.ErrorWrapper("Repository", "retrieveProductsOperation", "There is a problem with executing the statement into db", err)
+			return nil, logger.ErrorWrapper("Repository", "retrieveProductsOperation", "Error executing statement", err)
 		}
 
 		var products []domain.Product
@@ -47,50 +48,36 @@ func retrieveProductsOperation(rp *Repository, statement string, mapping map[str
 			if productNode != nil {
 				node := productNode.(neo4j.Node)
 
-				// Safely retrieve and type-assert each property with additional logging
-				productID64, ok := node.Props["productID"].(int64)
-				if !ok {
-					productIDFloat, floatOk := node.Props["productID"].(float64) // Sometimes integers may be stored as float64
-					if floatOk {
-						productID64 = int64(productIDFloat)
-					} else {
-						return nil, logger.ErrorWrapper("Repository", "retrieveProductsOperation", "Failed to retrieve 'productID' as int or float64", nil)
-					}
-				}
-				productID := int(productID64)
-
-				name, nameOk := node.Props["name"].(string)
-				if !nameOk {
-					return nil, logger.ErrorWrapper("Repository", "retrieveProductsOperation", "Failed to retrieve 'name' as string", nil)
+				// Access and convert properties safely
+				productID, err := getIntProperty(node.Props, "productID")
+				if err != nil {
+					return nil, logger.ErrorWrapper("Repository", "retrieveProductsOperation", err.Error(), nil)
 				}
 
-				description, descOk := node.Props["description"].(string)
-				if !descOk {
-					return nil, logger.ErrorWrapper("Repository", "retrieveProductsOperation", "Failed to retrieve 'description' as string", nil)
+				name, err := getStringProperty(node.Props, "name")
+				if err != nil {
+					return nil, logger.ErrorWrapper("Repository", "retrieveProductsOperation", err.Error(), nil)
 				}
 
-				category, categoryOk := node.Props["category"].(string)
-				if !categoryOk {
-					return nil, logger.ErrorWrapper("Repository", "retrieveProductsOperation", "Failed to retrieve 'category' as string", nil)
+				category, err := getStringProperty(node.Props, "category")
+				if err != nil {
+					return nil, logger.ErrorWrapper("Repository", "retrieveProductsOperation", err.Error(), nil)
+				}
+				description, err := getStringProperty(node.Props, "description")
+				if err != nil {
+					return nil, logger.ErrorWrapper("Repository", "retrieveProductsOperation", err.Error(), nil)
 				}
 
-				cost64, costOk := node.Props["cost"].(int64)
-				if !costOk {
-					costFloat, costFloatOk := node.Props["cost"].(float64)
-					if costFloatOk {
-						cost64 = int64(costFloat)
-					} else {
-						return nil, logger.ErrorWrapper("Repository", "retrieveProductsOperation", "Failed to retrieve 'cost' as int or float64", nil)
-					}
+				cost, err := getIntProperty(node.Props, "cost")
+				if err != nil {
+					return nil, logger.ErrorWrapper("Repository", "retrieveProductsOperation", err.Error(), nil)
 				}
-				cost := int(cost64)
 
-				// Create the product and add it to the list
 				product := domain.Product{
 					ProductId:   productID,
 					Name:        name,
-					Description: description,
 					Category:    category,
+					Description: description,
 					Cost:        cost,
 				}
 				products = append(products, product)
@@ -101,8 +88,125 @@ func retrieveProductsOperation(rp *Repository, statement string, mapping map[str
 	})
 
 	if err != nil {
-		return nil, logger.ErrorWrapper("Repository", "retrieveProductsOperation", "There is a problem with session.ExecuteRead function", err)
+		return nil, logger.ErrorWrapper("Repository", "retrieveProductsOperation", "Error in session.ExecuteRead", err)
 	}
 
 	return result.([]domain.Product), nil
+}
+
+// Helper functions to safely get properties
+func getIntProperty(props map[string]interface{}, key string) (int, error) {
+	if val, ok := props[key]; ok {
+		switch v := val.(type) {
+		case int64:
+			return int(v), nil
+		case float64:
+			return int(v), nil
+		case string:
+			parsedVal, err := strconv.Atoi(v)
+			if err != nil {
+				return 0, fmt.Errorf("Cannot convert %s to int", key)
+			}
+			return parsedVal, nil
+		default:
+			return 0, fmt.Errorf("Unknown type for %s", key)
+		}
+	}
+	return 0, fmt.Errorf("Property %s not found", key)
+}
+
+func getStringProperty(props map[string]interface{}, key string) (string, error) {
+	if val, ok := props[key]; ok {
+		if strVal, ok := val.(string); ok {
+			return strVal, nil
+		}
+		return "", fmt.Errorf("Property %s is not a string", key)
+	}
+	return "", fmt.Errorf("Property %s not found", key)
+}
+
+func (rp *Repository) RetrieveBehaviourBasedProduct(userId int) ([]domain.Product, error) {
+	statement :=
+		`MATCH (u:User {UserID: $userId})-[:LIKED|PURCHASED]->(p:Product)
+		WITH u, collect(DISTINCT p.category) AS likedPurchasedCategories
+		MATCH (otherProducts:Product)
+		WHERE otherProducts.category IN likedPurchasedCategories AND NOT (u)-[:PURCHASED]->(otherProducts)
+		RETURN otherProducts AS p
+	`
+	mapping := map[string]interface{}{"userId": userId}
+
+	products, err := retrieveProductsOperation(rp, statement, mapping)
+	if err != nil {
+		return nil, logger.ErrorWrapper("Repository", "RetrieveBehaviourBasedProduct", "There is a problem with executing the statement into db", err)
+	}
+
+	return products, nil
+}
+
+// Find similar users to user1 and recommend products they liked but user1 hasn't
+func (rp *Repository) RetrieveCollaborativeProduct(userId int) ([]domain.Product, error) {
+	fmt.Println("The RetrieveCollaborativeProduct function is started")
+	statement := `
+        MATCH (u1:User {UserID: $userId})-[:LIKED|PURCHASED]->(p:Product)<-[:LIKED|PURCHASED]-(u2:User)
+        WITH u1, u2, COUNT(p) AS commonInteraction
+        MATCH (u1)-[:LIKED|PURCHASED]->(p1:Product)
+        WITH u1, u2, commonInteraction, COUNT(p1) AS totalU1Interaction
+        MATCH (u2)-[:LIKED|PURCHASED]->(p2:Product)
+        WITH u1, u2, commonInteraction, totalU1Interaction, COUNT(p2) AS totalU2Interaction
+        WITH u1, u2, commonInteraction, totalU1Interaction, totalU2Interaction, 
+             (1.0 * commonInteraction) / (totalU1Interaction + totalU2Interaction - commonInteraction) AS jaccardSimilarity
+        WHERE jaccardSimilarity > 0.1  // Threshold to filter similar users
+        WITH u1, u2, jaccardSimilarity
+
+        // Subquery to recommend products based on similar users' likes
+        CALL {
+            WITH u1, u2, jaccardSimilarity
+            MATCH (u2)-[:LIKED|PURCHASED]->(p2:Product)
+            WHERE NOT (u1)-[:LIKED|PURCHASED]->(p2) // Exclude products user1 has already liked
+            RETURN p2, (1.0 * jaccardSimilarity) AS recommendationScore
+        }
+        RETURN p2 AS p, SUM(recommendationScore) AS totalScore
+        ORDER BY totalScore DESC;
+    `
+	mapping := map[string]interface{}{"userId": userId}
+
+	products, err := retrieveProductsOperation(rp, statement, mapping)
+	if err != nil {
+		return nil, logger.ErrorWrapper("Repository", "RetrieveCollaborativeProduct", "There is a problem with executing the statement into db", err)
+	}
+
+	fmt.Println("The collaborative products:", products)
+	return products, nil
+}
+
+func (rp *Repository) RetrievePurchasedProduct(userId int) ([]domain.Product, error) {
+
+	statement := `
+		MATCH (u:User {UserID: $userId})-[:PURCHASED]->(p:Product)
+		RETURN p
+	`
+	mapping := map[string]interface{}{"userId": userId}
+
+	products, err := retrieveProductsOperation(rp, statement, mapping)
+	if err != nil {
+		return nil, logger.ErrorWrapper("Repository", "RetrievePurchasedProduct", "There is a problem with executing the statement into db", err)
+	}
+	return products, nil
+
+}
+
+func (rp *Repository) RetrieveLikedProduct(userId int) ([]domain.Product, error) {
+
+	statement := `
+		MATCH (u:User {UserID: $userId})-[:LIKED]->(p:Product)
+		RETURN p
+	`
+	mapping := map[string]interface{}{"userId": userId}
+
+	products, err := retrieveProductsOperation(rp, statement, mapping)
+	if err != nil {
+		return nil, logger.ErrorWrapper("Repository", "RetrievePurchasedProduct", "There is a problem with executing the statement into db", err)
+	}
+	return products, nil
+
 }

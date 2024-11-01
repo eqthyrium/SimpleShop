@@ -50,7 +50,6 @@ func CreateToken(userId int, role string) (string, error) {
 	signature := createSignature(tokenJson, mySecretKey) // hashsum
 
 	signatureToken := base64.URLEncoding.EncodeToString(tokenJson) + "." + signature
-
 	return signatureToken, nil
 }
 

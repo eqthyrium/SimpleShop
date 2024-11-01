@@ -18,6 +18,8 @@ func (handler *HandlerHttp) Routering() http.Handler {
 	mux.Handle("/auth/signup", Middleware(handler.signUp))
 	mux.Handle("/logout", Middleware(handler.logOut))
 	mux.Handle("/reaction", Middleware(handler.reaction))
+	mux.Handle("/history", Middleware(handler.history))
+	mux.Handle("/recommendation", Middleware(handler.recommendation))
 	// Example of serving static files
 
 	//mux.Handle("/post", postPagePath)

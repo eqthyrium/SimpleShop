@@ -36,7 +36,7 @@ func (handler *HandlerHttp) reaction(w http.ResponseWriter, r *http.Request) {
 	}
 
 	reaction := r.FormValue("reaction")
-	productIdstr := r.FormValue("ProductId")
+	productIdstr := r.FormValue("product_id")
 	productId, err := strconv.Atoi(productIdstr)
 	if err != nil {
 		customLogger.ErrorLogger.Print(logger.ErrorWrapper("Transport", "reaction", "Failed the conversion the string to the integer value", err))

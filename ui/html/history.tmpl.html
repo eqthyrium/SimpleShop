@@ -1,0 +1,124 @@
+{{define "history"}}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Product History</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f9;
+            color: #333;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin: 0;
+            padding: 0;
+        }
+
+        a {
+            text-decoration: none;
+            color: #333;
+        }
+
+        h1 a:hover {
+            color: #007bff;
+        }
+
+        #content {
+            max-width: 1200px;
+            width: 100%;
+            padding: 20px;
+        }
+
+        .section-container {
+            display: flex;
+            gap: 20px;
+            justify-content: space-between;
+            margin-top: 20px;
+        }
+
+        .section {
+            flex: 1;
+            background-color: #ffffff;
+            border-radius: 8px;
+            padding: 20px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            overflow-y: auto;
+            max-height: 400px;
+        }
+
+        h2 {
+            color: #333;
+        }
+
+        .product-item {
+            background: #f9f9f9;
+            border-radius: 8px;
+            padding: 15px;
+            margin-bottom: 15px;
+            border: 1px solid #ddd;
+        }
+
+        .product-item h3 {
+            margin: 0 0 10px;
+            font-size: 1.1em;
+            color: #007bff;
+        }
+
+        .product-item p {
+            margin: 5px 0;
+            font-size: 0.95em;
+        }
+
+        .no-products {
+            font-style: italic;
+            color: #777;
+        }
+    </style>
+</head>
+<body>
+<a href="/"><h1>Online Shop</h1></a>
+
+<div id="content">
+    <h1>Product History</h1>
+
+    <div class="section-container">
+        <!-- Section for Liked Products -->
+        <section id="liked-products" class="section">
+            <h2>Liked Products</h2>
+            {{if .Liked}}
+            {{range .Liked}}
+            <div class="product-item">
+                <h3>{{.Name}}</h3>
+                <p>Category: {{.Category}}</p>
+                <p>Price: ${{.Cost}}</p>
+                <p>Description: {{.Description}}</p>
+            </div>
+            {{end}}
+            {{else}}
+            <p class="no-products">No liked products yet.</p>
+            {{end}}
+        </section>
+
+        <!-- Section for Purchased Products -->
+        <section id="purchased-products" class="section">
+            <h2>Purchased Products</h2>
+            {{if .Purchased}}
+            {{range .Purchased}}
+            <div class="product-item">
+                <h3>{{.Name}}</h3>
+                <p>Category: {{.Category}}</p>
+                <p>Price: ${{.Cost}}</p>
+                <p>Description: {{.Description}}</p>
+            </div>
+            {{end}}
+            {{else}}
+            <p class="no-products">No purchased products yet.</p>
+            {{end}}
+        </section>
+    </div>
+</div>
+</body>
+</html>
+{{end}}

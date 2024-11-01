@@ -1,25 +1,61 @@
-INFO: 2024/10/30 18:20:59 /home/eqthyrium/Documents/Adlet/Project/SimpleShop/internal/app/app.go:36: The server is running at: http://localhost:8888/
-INFO: 2024/10/30 18:21:02 /home/eqthyrium/Documents/Adlet/Project/SimpleShop/internal/transport/customHttp/middleware.go:56: Method:[GET], URL_Path: /, Remote_Address: [::1]:52980
-INFO: 2024/10/30 18:21:02 /home/eqthyrium/Documents/Adlet/Project/SimpleShop/internal/transport/customHttp/middleware.go:83: There is no cookie in the request of the client
-INFO: 2024/10/30 18:21:02 /home/eqthyrium/Documents/Adlet/Project/SimpleShop/internal/transport/customHttp/middleware.go:60: The End of the client request, and its Duration:5.272985ms
-INFO: 2024/10/30 18:21:02 /home/eqthyrium/Documents/Adlet/Project/SimpleShop/internal/transport/customHttp/middleware.go:56: Method:[GET], URL_Path: /favicon.ico, Remote_Address: [::1]:52980
-INFO: 2024/10/30 18:21:02 /home/eqthyrium/Documents/Adlet/Project/SimpleShop/internal/transport/customHttp/middleware.go:83: There is no cookie in the request of the client
-INFO: 2024/10/30 18:21:02 /home/eqthyrium/Documents/Adlet/Project/SimpleShop/internal/transport/customHttp/homepage.go:15: incorrect request's endpoint
-INFO: 2024/10/30 18:21:02 /home/eqthyrium/Documents/Adlet/Project/SimpleShop/internal/transport/customHttp/middleware.go:60: The End of the client request, and its Duration:715.136µs
-INFO: 2024/10/30 18:21:05 /home/eqthyrium/Documents/Adlet/Project/SimpleShop/internal/transport/customHttp/middleware.go:56: Method:[GET], URL_Path: /auth/login, Remote_Address: [::1]:53012
-INFO: 2024/10/30 18:21:05 /home/eqthyrium/Documents/Adlet/Project/SimpleShop/internal/transport/customHttp/middleware.go:83: There is no cookie in the request of the client
-INFO: 2024/10/30 18:21:05 /home/eqthyrium/Documents/Adlet/Project/SimpleShop/internal/transport/customHttp/middleware.go:60: The End of the client request, and its Duration:374.928µs
-INFO: 2024/10/30 18:21:09 /home/eqthyrium/Documents/Adlet/Project/SimpleShop/internal/transport/customHttp/middleware.go:56: Method:[POST], URL_Path: /auth/login, Remote_Address: [::1]:53012
-INFO: 2024/10/30 18:21:09 /home/eqthyrium/Documents/Adlet/Project/SimpleShop/internal/transport/customHttp/middleware.go:83: There is no cookie in the request of the client
-INFO: 2024/10/30 18:21:09 /home/eqthyrium/Documents/Adlet/Project/SimpleShop/internal/transport/customHttp/middleware.go:60: The End of the client request, and its Duration:52.895113ms
-INFO: 2024/10/30 18:21:15 /home/eqthyrium/Documents/Adlet/Project/SimpleShop/internal/transport/customHttp/middleware.go:56: Method:[POST], URL_Path: /auth/login, Remote_Address: [::1]:53012
-INFO: 2024/10/30 18:21:15 /home/eqthyrium/Documents/Adlet/Project/SimpleShop/internal/transport/customHttp/middleware.go:83: There is no cookie in the request of the client
-INFO: 2024/10/30 18:21:15 /home/eqthyrium/Documents/Adlet/Project/SimpleShop/internal/transport/customHttp/middleware.go:60: The End of the client request, and its Duration:51.894405ms
-INFO: 2024/10/30 18:21:15 /home/eqthyrium/Documents/Adlet/Project/SimpleShop/internal/transport/customHttp/middleware.go:56: Method:[GET], URL_Path: /, Remote_Address: [::1]:53012
-INFO: 2024/10/30 18:21:15 /home/eqthyrium/Documents/Adlet/Project/SimpleShop/internal/transport/customHttp/middleware.go:60: The End of the client request, and its Duration:6.950024ms
-INFO: 2024/10/30 18:21:17 /home/eqthyrium/Documents/Adlet/Project/SimpleShop/internal/transport/customHttp/middleware.go:56: Method:[POST], URL_Path: /reaction, Remote_Address: [::1]:53012
-INFO: 2024/10/30 18:21:17 /home/eqthyrium/Documents/Adlet/Project/SimpleShop/internal/transport/customHttp/middleware.go:177: The CSRF attack is detected, its IP is: [::1]:53012
-INFO: 2024/10/30 18:21:17 /home/eqthyrium/Documents/Adlet/Project/SimpleShop/internal/transport/customHttp/middleware.go:60: The End of the client request, and its Duration:197.375µs
-INFO: 2024/10/30 18:21:17 /home/eqthyrium/Documents/Adlet/Project/SimpleShop/internal/transport/customHttp/middleware.go:56: Method:[GET], URL_Path: /auth/login, Remote_Address: [::1]:53012
-INFO: 2024/10/30 18:21:17 /home/eqthyrium/Documents/Adlet/Project/SimpleShop/internal/transport/customHttp/middleware.go:83: There is no cookie in the request of the client
-INFO: 2024/10/30 18:21:17 /home/eqthyrium/Documents/Adlet/Project/SimpleShop/internal/transport/customHttp/middleware.go:60: The End of the client request, and its Duration:345.103µs
+INFO: 2024/11/01 18:08:07 /home/eqthyrium/Documents/Adlet/Project/SimpleShop/internal/app/app.go:36: The server is running at: http://localhost:8888/
+INFO: 2024/11/01 18:08:10 /home/eqthyrium/Documents/Adlet/Project/SimpleShop/internal/transport/customHttp/middleware.go:56: Method:[GET], URL_Path: /, Remote_Address: [::1]:48020
+INFO: 2024/11/01 18:08:10 /home/eqthyrium/Documents/Adlet/Project/SimpleShop/internal/transport/customHttp/middleware.go:83: There is no cookie in the request of the client
+INFO: 2024/11/01 18:08:10 /home/eqthyrium/Documents/Adlet/Project/SimpleShop/internal/transport/customHttp/middleware.go:60: The End of the client request, and its Duration:12.751703ms
+INFO: 2024/11/01 18:08:11 /home/eqthyrium/Documents/Adlet/Project/SimpleShop/internal/transport/customHttp/middleware.go:56: Method:[GET], URL_Path: /favicon.ico, Remote_Address: [::1]:48020
+INFO: 2024/11/01 18:08:11 /home/eqthyrium/Documents/Adlet/Project/SimpleShop/internal/transport/customHttp/middleware.go:83: There is no cookie in the request of the client
+INFO: 2024/11/01 18:08:11 /home/eqthyrium/Documents/Adlet/Project/SimpleShop/internal/transport/customHttp/homepage.go:18: incorrect request's endpoint
+INFO: 2024/11/01 18:08:11 /home/eqthyrium/Documents/Adlet/Project/SimpleShop/internal/transport/customHttp/middleware.go:60: The End of the client request, and its Duration:373.319µs
+INFO: 2024/11/01 18:08:27 /home/eqthyrium/Documents/Adlet/Project/SimpleShop/internal/transport/customHttp/middleware.go:56: Method:[GET], URL_Path: /, Remote_Address: [::1]:47642
+INFO: 2024/11/01 18:08:27 /home/eqthyrium/Documents/Adlet/Project/SimpleShop/internal/transport/customHttp/middleware.go:83: There is no cookie in the request of the client
+INFO: 2024/11/01 18:08:27 /home/eqthyrium/Documents/Adlet/Project/SimpleShop/internal/transport/customHttp/middleware.go:60: The End of the client request, and its Duration:9.079048ms
+INFO: 2024/11/01 18:08:30 /home/eqthyrium/Documents/Adlet/Project/SimpleShop/internal/transport/customHttp/middleware.go:56: Method:[GET], URL_Path: /, Remote_Address: [::1]:47642
+INFO: 2024/11/01 18:08:30 /home/eqthyrium/Documents/Adlet/Project/SimpleShop/internal/transport/customHttp/middleware.go:83: There is no cookie in the request of the client
+INFO: 2024/11/01 18:08:30 /home/eqthyrium/Documents/Adlet/Project/SimpleShop/internal/transport/customHttp/middleware.go:60: The End of the client request, and its Duration:10.88806ms
+INFO: 2024/11/01 18:08:33 /home/eqthyrium/Documents/Adlet/Project/SimpleShop/internal/transport/customHttp/middleware.go:56: Method:[GET], URL_Path: /auth/login, Remote_Address: [::1]:47642
+INFO: 2024/11/01 18:08:33 /home/eqthyrium/Documents/Adlet/Project/SimpleShop/internal/transport/customHttp/middleware.go:83: There is no cookie in the request of the client
+INFO: 2024/11/01 18:08:33 /home/eqthyrium/Documents/Adlet/Project/SimpleShop/internal/transport/customHttp/middleware.go:60: The End of the client request, and its Duration:345.823µs
+INFO: 2024/11/01 18:08:37 /home/eqthyrium/Documents/Adlet/Project/SimpleShop/internal/transport/customHttp/middleware.go:56: Method:[POST], URL_Path: /auth/login, Remote_Address: [::1]:47642
+INFO: 2024/11/01 18:08:37 /home/eqthyrium/Documents/Adlet/Project/SimpleShop/internal/transport/customHttp/middleware.go:83: There is no cookie in the request of the client
+INFO: 2024/11/01 18:08:37 /home/eqthyrium/Documents/Adlet/Project/SimpleShop/internal/transport/customHttp/middleware.go:60: The End of the client request, and its Duration:52.267903ms
+INFO: 2024/11/01 18:08:43 /home/eqthyrium/Documents/Adlet/Project/SimpleShop/internal/transport/customHttp/middleware.go:56: Method:[POST], URL_Path: /auth/login, Remote_Address: [::1]:47642
+INFO: 2024/11/01 18:08:43 /home/eqthyrium/Documents/Adlet/Project/SimpleShop/internal/transport/customHttp/middleware.go:83: There is no cookie in the request of the client
+INFO: 2024/11/01 18:08:43 /home/eqthyrium/Documents/Adlet/Project/SimpleShop/internal/transport/customHttp/middleware.go:60: The End of the client request, and its Duration:52.74643ms
+INFO: 2024/11/01 18:08:53 /home/eqthyrium/Documents/Adlet/Project/SimpleShop/internal/transport/customHttp/middleware.go:56: Method:[POST], URL_Path: /auth/login, Remote_Address: [::1]:47642
+INFO: 2024/11/01 18:08:53 /home/eqthyrium/Documents/Adlet/Project/SimpleShop/internal/transport/customHttp/middleware.go:83: There is no cookie in the request of the client
+INFO: 2024/11/01 18:08:53 /home/eqthyrium/Documents/Adlet/Project/SimpleShop/internal/transport/customHttp/middleware.go:60: The End of the client request, and its Duration:53.330162ms
+INFO: 2024/11/01 18:08:53 /home/eqthyrium/Documents/Adlet/Project/SimpleShop/internal/transport/customHttp/middleware.go:56: Method:[GET], URL_Path: /, Remote_Address: [::1]:47642
+INFO: 2024/11/01 18:08:53 /home/eqthyrium/Documents/Adlet/Project/SimpleShop/internal/transport/customHttp/middleware.go:60: The End of the client request, and its Duration:9.372058ms
+INFO: 2024/11/01 18:09:07 /home/eqthyrium/Documents/Adlet/Project/SimpleShop/internal/transport/customHttp/middleware.go:56: Method:[POST], URL_Path: /reaction, Remote_Address: [::1]:47642
+INFO: 2024/11/01 18:09:07 /home/eqthyrium/Documents/Adlet/Project/SimpleShop/internal/transport/customHttp/middleware.go:60: The End of the client request, and its Duration:9.720336ms
+INFO: 2024/11/01 18:09:07 /home/eqthyrium/Documents/Adlet/Project/SimpleShop/internal/transport/customHttp/middleware.go:56: Method:[GET], URL_Path: /, Remote_Address: [::1]:47642
+INFO: 2024/11/01 18:09:07 /home/eqthyrium/Documents/Adlet/Project/SimpleShop/internal/transport/customHttp/middleware.go:60: The End of the client request, and its Duration:10.183009ms
+INFO: 2024/11/01 18:09:09 /home/eqthyrium/Documents/Adlet/Project/SimpleShop/internal/transport/customHttp/middleware.go:56: Method:[POST], URL_Path: /reaction, Remote_Address: [::1]:47642
+INFO: 2024/11/01 18:09:09 /home/eqthyrium/Documents/Adlet/Project/SimpleShop/internal/transport/customHttp/middleware.go:60: The End of the client request, and its Duration:12.03013ms
+INFO: 2024/11/01 18:09:09 /home/eqthyrium/Documents/Adlet/Project/SimpleShop/internal/transport/customHttp/middleware.go:56: Method:[GET], URL_Path: /, Remote_Address: [::1]:47642
+INFO: 2024/11/01 18:09:09 /home/eqthyrium/Documents/Adlet/Project/SimpleShop/internal/transport/customHttp/middleware.go:60: The End of the client request, and its Duration:8.756864ms
+INFO: 2024/11/01 18:09:11 /home/eqthyrium/Documents/Adlet/Project/SimpleShop/internal/transport/customHttp/middleware.go:56: Method:[POST], URL_Path: /reaction, Remote_Address: [::1]:47642
+INFO: 2024/11/01 18:09:11 /home/eqthyrium/Documents/Adlet/Project/SimpleShop/internal/transport/customHttp/middleware.go:60: The End of the client request, and its Duration:7.380768ms
+INFO: 2024/11/01 18:09:11 /home/eqthyrium/Documents/Adlet/Project/SimpleShop/internal/transport/customHttp/middleware.go:56: Method:[GET], URL_Path: /, Remote_Address: [::1]:47642
+INFO: 2024/11/01 18:09:11 /home/eqthyrium/Documents/Adlet/Project/SimpleShop/internal/transport/customHttp/middleware.go:60: The End of the client request, and its Duration:8.895312ms
+INFO: 2024/11/01 18:09:15 /home/eqthyrium/Documents/Adlet/Project/SimpleShop/internal/transport/customHttp/middleware.go:56: Method:[GET], URL_Path: /history, Remote_Address: [::1]:47642
+INFO: 2024/11/01 18:09:15 /home/eqthyrium/Documents/Adlet/Project/SimpleShop/internal/transport/customHttp/middleware.go:60: The End of the client request, and its Duration:7.585797ms
+INFO: 2024/11/01 18:09:20 /home/eqthyrium/Documents/Adlet/Project/SimpleShop/internal/transport/customHttp/middleware.go:56: Method:[GET], URL_Path: /, Remote_Address: [::1]:47642
+INFO: 2024/11/01 18:09:20 /home/eqthyrium/Documents/Adlet/Project/SimpleShop/internal/transport/customHttp/middleware.go:60: The End of the client request, and its Duration:9.838797ms
+INFO: 2024/11/01 18:09:22 /home/eqthyrium/Documents/Adlet/Project/SimpleShop/internal/transport/customHttp/middleware.go:56: Method:[GET], URL_Path: /recommendation, Remote_Address: [::1]:47642
+INFO: 2024/11/01 18:09:22 /home/eqthyrium/Documents/Adlet/Project/SimpleShop/internal/transport/customHttp/middleware.go:60: The End of the client request, and its Duration:15.533265ms
+INFO: 2024/11/01 18:09:42 /home/eqthyrium/Documents/Adlet/Project/SimpleShop/internal/transport/customHttp/middleware.go:56: Method:[GET], URL_Path: /, Remote_Address: [::1]:47642
+INFO: 2024/11/01 18:09:42 /home/eqthyrium/Documents/Adlet/Project/SimpleShop/internal/transport/customHttp/middleware.go:60: The End of the client request, and its Duration:9.057991ms
+INFO: 2024/11/01 18:09:51 /home/eqthyrium/Documents/Adlet/Project/SimpleShop/internal/transport/customHttp/middleware.go:56: Method:[GET], URL_Path: /, Remote_Address: [::1]:47642
+INFO: 2024/11/01 18:09:51 /home/eqthyrium/Documents/Adlet/Project/SimpleShop/internal/transport/customHttp/middleware.go:60: The End of the client request, and its Duration:12.343697ms
+INFO: 2024/11/01 18:09:54 /home/eqthyrium/Documents/Adlet/Project/SimpleShop/internal/transport/customHttp/middleware.go:56: Method:[GET], URL_Path: /, Remote_Address: [::1]:47642
+INFO: 2024/11/01 18:09:54 /home/eqthyrium/Documents/Adlet/Project/SimpleShop/internal/transport/customHttp/middleware.go:60: The End of the client request, and its Duration:8.361954ms
+INFO: 2024/11/01 18:10:01 /home/eqthyrium/Documents/Adlet/Project/SimpleShop/internal/transport/customHttp/middleware.go:56: Method:[POST], URL_Path: /logout, Remote_Address: [::1]:47642
+INFO: 2024/11/01 18:10:01 /home/eqthyrium/Documents/Adlet/Project/SimpleShop/internal/transport/customHttp/middleware.go:177: The CSRF attack is detected, its IP is: [::1]:47642
+INFO: 2024/11/01 18:10:01 /home/eqthyrium/Documents/Adlet/Project/SimpleShop/internal/transport/customHttp/middleware.go:60: The End of the client request, and its Duration:452.975µs
+INFO: 2024/11/01 18:10:01 /home/eqthyrium/Documents/Adlet/Project/SimpleShop/internal/transport/customHttp/middleware.go:56: Method:[GET], URL_Path: /auth/login, Remote_Address: [::1]:47642
+INFO: 2024/11/01 18:10:01 /home/eqthyrium/Documents/Adlet/Project/SimpleShop/internal/transport/customHttp/middleware.go:83: There is no cookie in the request of the client
+INFO: 2024/11/01 18:10:01 /home/eqthyrium/Documents/Adlet/Project/SimpleShop/internal/transport/customHttp/middleware.go:60: The End of the client request, and its Duration:2.238969ms
+INFO: 2024/11/01 18:10:05 /home/eqthyrium/Documents/Adlet/Project/SimpleShop/internal/transport/customHttp/middleware.go:56: Method:[GET], URL_Path: /auth/signup, Remote_Address: [::1]:47642
+INFO: 2024/11/01 18:10:05 /home/eqthyrium/Documents/Adlet/Project/SimpleShop/internal/transport/customHttp/middleware.go:83: There is no cookie in the request of the client
+INFO: 2024/11/01 18:10:05 /home/eqthyrium/Documents/Adlet/Project/SimpleShop/internal/transport/customHttp/middleware.go:60: The End of the client request, and its Duration:711.125µs
